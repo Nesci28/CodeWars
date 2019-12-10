@@ -1,0 +1,15 @@
+.top {
+  top: 60px;
+}
+
+.content {
+  max-width: 100%;
+  &-left {
+    left: 0;
+    max-width: calc(100% - 15px);
+  }
+  &-right {
+    left: 220px;
+    max-width: calc(100% - 235px);
+  }
+}

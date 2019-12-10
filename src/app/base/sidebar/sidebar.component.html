@@ -5,25 +5,30 @@
     [mode]="1"
     [sidebarClass]="'bg-dark sidebar-size'"
   >
+    <button class="mt-2 btn btn-outline-primary btn-block">
+      <i class="fas fa-sign-in-alt"></i> Login/Signout
+    </button>
     <div class="pt-5"></div>
     <button class="btn btn-outline-primary btn-block">
-      <i class="fas fa-chess-king"></i> Leaderboard
+      <i class="fas fa-server"></i> Katas
     </button>
     <button class="btn btn-outline-primary btn-block">
-      <i class="fas fa-server"></i> Katas
+      <i class="fas fa-chess-king"></i> Leaderboard
     </button>
   </ng-sidebar>
 
   <div ng-sidebar-content>
     <nav
-      class="d-flex justify-content-left align-items-center my-2"
-      [ngClass]="{ 'ml-3': opened }"
+      class="bg-dark d-flex justify-content-left align-items-center py-2"
+      [ngClass]="{ 'pl-3': opened }"
     >
-      <button class="btn btn-outline-primary" (click)="toggleSidebar()">
-        <i class="fas" [ngClass]="!opened ? 'fa-bars' : 'fa-times'"></i>
-      </button>
-      <div>&nbsp;</div>
-      <h3 class="d-inline-block m-0">CodeWars</h3>
+      <div class="d-flex">
+        <button class="btn btn-outline-primary" (click)="toggleSidebar()">
+          <i class="fas" [ngClass]="!opened ? 'fa-bars' : 'fa-times'"></i>
+        </button>
+        <div>&nbsp;</div>
+        <h3 class="d-inline-block m-0">CodeWars</h3>
+      </div>
     </nav>
   </div>
 </ng-sidebar-container>

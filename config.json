@@ -1,0 +1,15 @@
+{
+  "version": "latest",
+  "yarn": true,
+  "name": "CodeWars",
+  "path": "C:\\Users\\marc.gagnon1\\Documents\\CodeWars",
+  "routing": true,
+  "fontAwesome": true,
+  "themeFrame": "Bootstrap",
+  "themeRes": true,
+  "theme": "superhero",
+  "testing": true,
+  "testFrame": true,
+  "hammer": false,
+  "git": false
+}

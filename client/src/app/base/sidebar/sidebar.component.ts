@@ -36,6 +36,7 @@ export class SidebarComponent extends BaseComponent implements OnInit {
 
   logout(): void {
     this.stateService.loggedIn$.next(false);
+    this.stateService.username$.next("");
     this.router.navigate([""]);
   }
 }

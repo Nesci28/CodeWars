@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, isDevMode } from "@angular/core";
 import { BaseComponent } from "../base/base/base.component";
 import { StateService } from "../services/state.service";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 interface Alert {
   type: string;
   message: string;
+  reset: () => void;
 }
 
 @Component({
@@ -21,7 +22,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
   opened: boolean;
   alert: Alert = {
     type: "",
-    message: ""
+    message: "",
+    reset: () => {
+      (this.alert.type = ""), (this.alert.message = "");
+    }
   };
 
   form = new FormGroup({
@@ -43,6 +47,13 @@ export class HomeComponent extends BaseComponent implements OnInit {
       .subscribe(opened => {
         this.opened = opened;
       });
+
+    // TODO: Delete
+    if (isDevMode()) {
+      this.username.setValue("test1");
+      this.password.setValue("root");
+      this.login();
+    }
   }
 
   get username() {
@@ -53,12 +64,14 @@ export class HomeComponent extends BaseComponent implements OnInit {
   }
 
   login(): void {
+    this.alert.reset();
     this.httpService
       .login(this.username.value, this.password.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: backendResponse) => {
         if (res.data.code === 200) {
           this.stateService.loggedIn$.next(true);
+          this.stateService.username$.next(this.username.value);
           this.router.navigate(["profile"]);
         }
         if (res.data.code === 401) {
@@ -69,6 +82,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
   }
 
   signup(): void {
+    this.alert.reset();
     this.httpService
       .signup(this.username.value, this.password.value)
       .pipe(takeUntil(this.destroy$))

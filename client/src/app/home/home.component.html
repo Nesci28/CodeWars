@@ -1,0 +1,30 @@
+<div class="row h-100">
+  <div class="col-sm-4 m-auto">
+    <ngb-alert *ngIf="alert.type" [type]="alert.type">{{
+      alert.message
+    }}</ngb-alert>
+    <form (submit)="login()" class="formGroup" [formGroup]="form">
+      <input
+        formControlName="username"
+        type="text"
+        placeHolder="Username"
+        class="form-control-lg w-100"
+      />
+      <input
+        formControlName="password"
+        type="password"
+        placeHolder="Password"
+        class="form-control-lg w-100"
+      />
+      <div class="w-100  d-flex justify-content-center">
+        <button (click)="login()" class="mt-3 btn btn-outline-primary mr-4">
+          Login
+        </button>
+        <button (click)="signup()" class="mt-3 btn btn-secondary">
+          Signup
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="img-background col-sm-8"></div>
+</div>

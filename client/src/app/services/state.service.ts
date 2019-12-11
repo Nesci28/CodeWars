@@ -6,6 +6,7 @@ import { BehaviorSubject } from "rxjs";
 })
 export class StateService {
   opened$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {}
 }

@@ -3,18 +3,29 @@
     [(opened)]="opened"
     [dock]="true"
     [mode]="1"
-    [sidebarClass]="'bg-dark sidebar-size'"
+    [sidebarClass]="'bg-dark sidebar-size px-2'"
   >
-    <button class="mt-2 btn btn-outline-primary btn-block">
-      <i class="fas fa-sign-in-alt"></i> Login/Signout
+    <button *ngIf="!loggedIn" class="mt-2 btn btn-outline-light btn-block">
+      <i class="fas fa-sign-in-alt"></i> Login/Signup
+    </button>
+    <button *ngIf="loggedIn" class="mt-2 btn btn-outline-primary btn-block">
+      <i class="far fa-id-badge"></i> Profile
     </button>
     <div class="pt-5"></div>
+
     <button class="btn btn-outline-primary btn-block">
       <i class="fas fa-server"></i> Katas
     </button>
     <button class="btn btn-outline-primary btn-block">
       <i class="fas fa-chess-king"></i> Leaderboard
     </button>
+
+    <div *ngIf="loggedIn">
+      <div class="pt-5"></div>
+      <button (click)="logout()" class="btn btn-outline-light btn-block">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
   </ng-sidebar>
 
   <div ng-sidebar-content>

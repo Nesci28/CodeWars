@@ -15,6 +15,7 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { EditComponent } from './edit/edit.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EditComponent } from './edit/edit.component';
     HomeComponent,
     ProfileComponent,
     ProfileStatsComponent,
-    EditComponent
+    EditComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,

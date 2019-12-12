@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 
+import { backendResponse, ProfileData } from "../../models/http.models";
 import { BaseComponent } from "../base/base/base.component";
 import { HttpService } from "../services/http.service";
 import { StateService } from "../services/state.service";
-import { ProfileData, backendResponse } from "../../models/http.models";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-profile",
@@ -14,23 +14,27 @@ import { Router } from "@angular/router";
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
   profile: ProfileData;
+  id: string | undefined;
 
   constructor(
     private httpService: HttpService,
     private stateService: StateService,
-    private router: Router
+    private route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit() {
+    this.id = this.route.snapshot.params.username;
+    const accountToBeSearched: string = !this.id
+      ? this.stateService.username$.value
+      : this.id;
     this.httpService
-      .getProfile(this.stateService.username$.value)
+      .getProfile(accountToBeSearched)
       .pipe(takeUntil(this.destroy$))
       .subscribe((profile: backendResponse) => {
-        this.stateService.profile$.next(profile.data.data);
-        this.profile = profile.data.data;
-        console.log("this.profile :", this.profile);
+        this.stateService.profile$.next(profile.data.profileData);
+        this.profile = profile.data.profileData;
       });
   }
 

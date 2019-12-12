@@ -3,7 +3,7 @@
     [(opened)]="opened"
     [dock]="true"
     [mode]="1"
-    [sidebarClass]="'bg-dark sidebar-size px-2'"
+    [sidebarClass]="'bg-dark sidebar-size px-2 overflow-inherit'"
   >
     <button *ngIf="!loggedIn" class="mt-2 btn btn-outline-light btn-block">
       <i class="fas fa-sign-in-alt"></i> Login/Signup
@@ -17,13 +17,18 @@
     </button>
     <div class="pt-5"></div>
 
-    <button class="btn btn-outline-primary btn-block">
+    <button
+      class="btn btn-outline-primary btn-block"
+      placement="right"
+      [ngbPopover]="kataPopup"
+      popoverTitle="Popover on right"
+    >
       <i class="fas fa-server"></i> Katas
     </button>
     <button class="btn btn-outline-primary btn-block">
       <i class="far fa-eye"></i> Solutions
     </button>
-    <button class="btn btn-outline-primary btn-block">
+    <button routerLink="leaderboard" class="btn btn-outline-primary btn-block">
       <i class="fas fa-chess-king"></i> Leaderboard
     </button>
 

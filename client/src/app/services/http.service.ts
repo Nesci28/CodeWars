@@ -28,4 +28,10 @@ export class HttpService {
       `${environment.url}/api/v1/profile/${username}`
     );
   }
+
+  getLeaderboard(): Observable<backendResponse> {
+    return this.httpClient.get<backendResponse>(
+      `${environment.url}/api/v1/leaderboard/`
+    );
+  }
 }

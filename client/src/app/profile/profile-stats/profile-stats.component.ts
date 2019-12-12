@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { BaseComponent } from "src/app/base/base/base.component";
-import { StateService } from "src/app/services/state.service";
-import { ProfileData } from "src/models/http.models";
+import { BaseComponent } from "../../base/base/base.component";
+import { StateService } from "../../services/state.service";
+import { ProfileData, Kata } from "../../../models/http.models";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-profile-stats",
@@ -11,15 +11,14 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./profile-stats.component.scss"]
 })
 export class ProfileStatsComponent extends BaseComponent implements OnInit {
-  katas: any[];
+  katas: Kata[];
   kyu: number;
   editorOptions = { theme: "vs-dark", language: "javascript" };
-  code: string = 'function x() {\nconsole.log("Hello world!");\n}';
-  originalCode: string = "function x() { // TODO }";
 
   constructor(
     private stateService: StateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super();
   }
@@ -34,5 +33,10 @@ export class ProfileStatsComponent extends BaseComponent implements OnInit {
           kata.expand = false;
         });
       });
+  }
+
+  goToEdit(kata: Kata): void {
+    this.stateService.kata$.next(kata);
+    this.router.navigate([`edit/${kata.id}`]);
   }
 }

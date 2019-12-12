@@ -5,20 +5,29 @@ import { ProfileComponent } from "./profile/profile.component";
 import { LoggedInGuard } from "./guards/logged-in.guard";
 import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.component";
 import { EditComponent } from "./edit/edit.component";
+import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
 
 const routes: Routes = [
-  { path: "", component: HomeComponent },
   {
     path: "profile/stats/:id",
     component: ProfileStatsComponent,
     canActivate: [LoggedInGuard]
   },
   {
+    path: "profile/:username",
+    component: ProfileComponent
+  },
+  {
     path: "profile",
     component: ProfileComponent,
     canActivate: [LoggedInGuard]
   },
-  { path: "edit/:id", component: EditComponent, canActivate: [LoggedInGuard] }
+  { path: "edit/:id", component: EditComponent, canActivate: [LoggedInGuard] },
+  {
+    path: "leaderboard",
+    component: LeaderboardComponent
+  },
+  { path: "", component: HomeComponent }
 ];
 
 @NgModule({

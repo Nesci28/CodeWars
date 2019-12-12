@@ -32,7 +32,7 @@
       ></ngx-monaco-editor>
       <div class="w-100 mt-1">
         <button
-          routerLink="/edit/{{ kata.id }}"
+          (click)="goToEdit(kata)"
           class="btn btn-outline-light btn-sm mr-3"
         >
           Edit

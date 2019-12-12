@@ -17,6 +17,7 @@ app.use(cors());
 // Routes
 app.use('/api/v1/auth', require('./routes/login.js'));
 app.use('/api/v1/profile', require('./routes/profile.js'));
+app.use('/api/v1/leaderboard', require('./routes/leaderboard.js'));
 
 // Starting the App
 const PORT = process.env.PORT || 3000;

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { ProfileData } from "src/models/http.models";
+import { ProfileData, Kata } from "../../models/http.models";
 
 @Injectable({
   providedIn: "root"
@@ -13,6 +13,7 @@ export class StateService {
   profile$: BehaviorSubject<ProfileData> = new BehaviorSubject<ProfileData>(
     {} as ProfileData
   );
+  kata$: BehaviorSubject<Kata> = new BehaviorSubject<Kata>({} as Kata);
 
   constructor() {}
 }

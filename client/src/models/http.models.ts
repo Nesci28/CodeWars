@@ -14,9 +14,26 @@ interface Data {
   message: string;
   code: number;
   admin?: boolean;
-  data?: ProfileData;
+  profileData?: ProfileData;
+  leaderboard?: Leaderboard[];
 }
 
 export interface backendResponse {
   data: Data;
+}
+
+export interface Kata {
+  id: number;
+  title: string;
+  resolved: number;
+  data: number;
+  expand?: boolean;
+  code: string;
+}
+
+export interface Leaderboard {
+  id: number;
+  username: string;
+  score: number;
+  rank: string;
 }

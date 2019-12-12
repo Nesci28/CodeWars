@@ -1,1 +1,38 @@
-<p>profile works!</p>
+<div *ngIf="profile" class="container m-auto">
+  <h1 class="text-center">
+    Welcome back, <span class="text-primary">{{ profile.username }}!</span>
+  </h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <span class="lead">Kyu Rank:</span>
+      <p>{{ convertPointsToKyu() }} Kyu</p>
+    </div>
+    <div class="col-sm-6">
+      <span class="lead">Total Score:</span>
+      <p>{{ profile.score }} pts</p>
+    </div>
+    <div class="col-sm-12">
+      <div class="progress">
+        <div
+          class="progress-bar bg-success"
+          role="progressbar"
+          aria-valuenow="75"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [ngStyle]="{ width: calcExp() + '%' }"
+        ></div>
+      </div>
+    </div>
+    <div class="mt-5 row mx-auto">
+      <h3 class="col-sm-12 text-center">Stats</h3>
+      <div
+        class="col-sm-3 pointer"
+        *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]"
+        routerLink="/profile/stats/{{ i }}"
+      >
+        <span class="lead">Kyu {{ i }}:</span>
+        <p>{{ getAmountOfKyuDone(i) }}</p>
+      </div>
+    </div>
+  </div>
+</div>

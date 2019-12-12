@@ -8,7 +8,11 @@
     <button *ngIf="!loggedIn" class="mt-2 btn btn-outline-light btn-block">
       <i class="fas fa-sign-in-alt"></i> Login/Signup
     </button>
-    <button *ngIf="loggedIn" class="mt-2 btn btn-outline-primary btn-block">
+    <button
+      routerLink="profile"
+      *ngIf="loggedIn"
+      class="mt-2 btn btn-outline-primary btn-block"
+    >
       <i class="far fa-id-badge"></i> Profile
     </button>
     <div class="pt-5"></div>
@@ -22,6 +26,13 @@
     <button class="btn btn-outline-primary btn-block">
       <i class="fas fa-chess-king"></i> Leaderboard
     </button>
+
+    <div *ngIf="admin">
+      <div class="pt-5"></div>
+      <button class="btn btn-outline-info btn-block">
+        <i class="fas fa-atom"></i> Admin Panel
+      </button>
+    </div>
 
     <div *ngIf="loggedIn">
       <div class="pt-5"></div>

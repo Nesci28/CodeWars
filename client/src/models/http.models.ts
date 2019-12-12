@@ -7,11 +7,13 @@ export interface ProfileData {
   "5Kyu": any[];
   "6Kyu": any[];
   "7Kyu": any[];
+  score: number;
 }
 
 interface Data {
   message: string;
   code: number;
+  admin?: boolean;
   data?: ProfileData;
 }
 

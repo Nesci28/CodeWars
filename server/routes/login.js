@@ -20,7 +20,7 @@ router.get('/login/:username/:password', async (req, res) => {
     if (!bcrypt.compareSync(password, data.password)) {
       data = { message: 'Wrong credentials', code: 401 };
     } else {
-      data = { message: 'Logged in', code: 200 };
+      data = { message: 'Logged in', code: 200, admin: data.admin };
     }
   }
   res.json({
@@ -50,6 +50,7 @@ router.get('/signup/:username/:password', async (req, res) => {
       '3Kyu': [],
       '2Kyu': [],
       '1Kyu': [],
+      score: 0,
     });
     data = { message: 'Account created', code: 200 };
   } else {

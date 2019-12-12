@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
 export class SidebarComponent extends BaseComponent implements OnInit {
   opened: boolean = false;
   loggedIn: boolean = false;
+  admin: boolean = false;
 
   constructor(private stateService: StateService, private router: Router) {
     super();
@@ -28,6 +29,9 @@ export class SidebarComponent extends BaseComponent implements OnInit {
       .subscribe(loggedIn => {
         this.loggedIn = loggedIn;
       });
+    this.stateService.admin$.pipe(takeUntil(this.destroy$)).subscribe(admin => {
+      this.admin = admin;
+    });
   }
 
   toggleSidebar() {

@@ -72,6 +72,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
         if (res.data.code === 200) {
           this.stateService.loggedIn$.next(true);
           this.stateService.username$.next(this.username.value);
+          this.stateService.admin$.next(res.data.admin);
           this.router.navigate(["profile"]);
         }
         if (res.data.code === 401) {

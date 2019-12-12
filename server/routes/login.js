@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-require('dotenv').config();
 
 // Database
 const db = require('monk')(
   `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}${process.env.DB_URL}`,
 );
 loginsDB = db.get('logins');
+profileDB = db.get('profile');
 
 router.get('/login/:username/:password', async (req, res) => {
   const { username, password } = req.params;
   let data = await loginsDB.findOne({
     username,
   });
-  if (data.length === 0) {
+  if (!data) {
     data = { message: 'Wrong credentials', code: 401 };
   } else {
     if (!bcrypt.compareSync(password, data.password)) {
@@ -41,6 +41,16 @@ router.get('/signup/:username/:password', async (req, res) => {
   if (data.length === 0) {
     password = passwordConvert(password);
     loginsDB.insert({ username, password });
+    profileDB.insert({
+      username,
+      '7Kyu': [],
+      '6Kyu': [],
+      '5Kyu': [],
+      '4Kyu': [],
+      '3Kyu': [],
+      '2Kyu': [],
+      '1Kyu': [],
+    });
     data = { message: 'Account created', code: 200 };
   } else {
     data = { message: 'Username is already taken', code: 403 };

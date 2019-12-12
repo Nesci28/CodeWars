@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+require('dotenv').config();
 
 // Middlewares
 const app = express();
@@ -14,7 +15,8 @@ app.use(morgan('tiny'));
 app.use(cors());
 
 // Routes
-app.use('/api/v1/auth', require('./routes/db.js'));
+app.use('/api/v1/auth', require('./routes/login.js'));
+app.use('/api/v1/profile', require('./routes/profile.js'));
 
 // Starting the App
 const PORT = process.env.PORT || 3000;

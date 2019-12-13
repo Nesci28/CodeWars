@@ -6,6 +6,9 @@ import { LoggedInGuard } from "./guards/logged-in.guard";
 import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.component";
 import { EditComponent } from "./edit/edit.component";
 import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
+import { KataComponent } from "./kata/kata.component";
+import { AdminGuard } from "./guards/admin.guard";
+import { AdminComponent } from "./admin/admin.component";
 
 const routes: Routes = [
   {
@@ -15,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: "profile/:username",
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [LoggedInGuard]
   },
   {
     path: "profile",
@@ -23,9 +27,15 @@ const routes: Routes = [
     canActivate: [LoggedInGuard]
   },
   { path: "edit/:id", component: EditComponent, canActivate: [LoggedInGuard] },
+  { path: "kata/:level", component: KataComponent },
   {
     path: "leaderboard",
     component: LeaderboardComponent
+  },
+  {
+    path: "admin/create",
+    component: AdminComponent,
+    canActivate: [AdminGuard]
   },
   { path: "", component: HomeComponent }
 ];

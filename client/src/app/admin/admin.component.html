@@ -1,0 +1,48 @@
+<div class="row">
+  <form [formGroup]="form" class="w-100 row" style="padding-left: 30px;">
+    <input
+      type="text"
+      class="form-control col-sm-8"
+      placeholder="Title"
+      formControlName="title"
+    />
+    <select class="form-control col-sm-2" formControlName="level">
+      <option value="7">7</option>
+      <option value="6">6</option>
+      <option value="5">5</option>
+      <option value="4">4</option>
+      <option value="3">3</option>
+      <option value="2">2</option>
+      <option value="1">1</option>
+    </select>
+    <select class="form-control col-sm-2" formControlName="language">
+      <option value="javascript">Javascript</option>
+      <option value="java">Java</option>
+      <option value="python">Python</option>
+      <option value="c#">C#</option>
+    </select>
+    <textarea
+      class="form-control w-100"
+      placeholder="Description"
+      formControlName="description"
+      rows="3"
+    ></textarea>
+  </form>
+</div>
+<div>
+  <p class="lead mt-3 mb-0">Starting function</p>
+  <ngx-monaco-editor
+    class="w-100 position-relative"
+    style="height: 200px; top:0;"
+    [options]="editorOptions"
+    [(ngModel)]="function"
+  ></ngx-monaco-editor>
+  <p class="lead mt-3 mb-0">Test case</p>
+  <ngx-monaco-editor
+    class="w-100 position-relative"
+    style="height: 200px; top:0;"
+    [options]="editorOptions"
+    [(ngModel)]="testCases"
+  ></ngx-monaco-editor>
+</div>
+<button class="btn btn-outline-primary mt-3">Save</button>

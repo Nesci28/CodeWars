@@ -16,6 +16,8 @@ import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.com
 import { ProfileComponent } from "./profile/profile.component";
 import { EditComponent } from './edit/edit.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { KataComponent } from './kata/kata.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     ProfileComponent,
     ProfileStatsComponent,
     EditComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    KataComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

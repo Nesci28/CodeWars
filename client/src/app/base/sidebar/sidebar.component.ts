@@ -14,10 +14,7 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   loggedIn: boolean = false;
   admin: boolean = false;
 
-  kataPopup: string = `test\n
-  test1\n
-  test2n
-  test3\n`;
+  kataPopup: string = ``;
 
   constructor(private stateService: StateService, private router: Router) {
     super();

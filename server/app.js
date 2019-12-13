@@ -18,6 +18,7 @@ app.use(cors());
 app.use('/api/v1/auth', require('./routes/login.js'));
 app.use('/api/v1/profile', require('./routes/profile.js'));
 app.use('/api/v1/leaderboard', require('./routes/leaderboard.js'));
+app.use('/api/v1/kata', require('./routes/katas.js'));
 
 // Starting the App
 const PORT = process.env.PORT || 3000;

@@ -2,12 +2,12 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { LoggedInGuard } from "./guards/logged-in.guard";
+import { LoggedInGuard } from "./shared/guards/logged-in.guard";
 import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.component";
 import { EditComponent } from "./edit/edit.component";
 import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
 import { KataComponent } from "./kata/kata.component";
-import { AdminGuard } from "./guards/admin.guard";
+import { AdminGuard } from "./shared/guards/admin.guard";
 import { AdminComponent } from "./admin/admin.component";
 
 const routes: Routes = [

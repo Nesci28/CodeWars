@@ -4,7 +4,7 @@ import { StateService } from "../services/state.service";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import { HttpService } from "../services/http.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { backendResponse } from "../../models/http.models";
+import { backendResponse } from "../models/http.models";
 import { Router } from "@angular/router";
 
 interface Alert {

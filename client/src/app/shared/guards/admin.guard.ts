@@ -7,7 +7,7 @@ import {
   Router
 } from "@angular/router";
 import { Observable } from "rxjs";
-import { StateService } from "../services/state.service";
+import { StateService } from "../../services/state.service";
 import { map } from "rxjs/operators";
 
 @Injectable({

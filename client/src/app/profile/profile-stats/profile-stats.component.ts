@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { BaseComponent } from "../../base/base/base.component";
 import { StateService } from "../../services/state.service";
-import { ProfileData, Kata } from "../../../models/http.models";
+import { ProfileData, Kata } from "../../models/http.models";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import { ActivatedRoute, Router } from "@angular/router";
 

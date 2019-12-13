@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { takeUntil } from "rxjs/operators";
 
-import { backendResponse, Leaderboard } from "../../models/http.models";
+import { backendResponse, Leaderboard } from "../models/http.models";
 import { BaseComponent } from "../base/base/base.component";
 import { HttpService } from "../services/http.service";
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Kata } from "../../models/http.models";
+import { Kata } from "../models/http.models";
 import { BaseComponent } from "../base/base/base.component";
 import { StateService } from "../services/state.service";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";

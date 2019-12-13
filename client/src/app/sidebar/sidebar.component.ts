@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { StateService } from "../../services/state.service";
-import { BaseComponent } from "../base/base.component";
+import { StateService } from "../services/state.service";
+import { BaseComponent } from "../base/base/base.component";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import { Router } from "@angular/router";
 
@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 export class SidebarComponent extends BaseComponent implements OnInit {
   opened: boolean = false;
   loggedIn: boolean = false;
-  admin: boolean = false;
+  adminBool: boolean = false;
 
   kataPopup: string = ``;
 
@@ -32,7 +32,8 @@ export class SidebarComponent extends BaseComponent implements OnInit {
         this.loggedIn = loggedIn;
       });
     this.stateService.admin$.pipe(takeUntil(this.destroy$)).subscribe(admin => {
-      this.admin = admin;
+      this.adminBool = admin;
+      console.log("adminBool :", this.adminBool);
     });
   }
 

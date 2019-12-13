@@ -5,7 +5,11 @@
     mode="slide"
     [sidebarClass]="'bg-dark sidebar-size px-2 overflow-inherit'"
   >
-    <button *ngIf="!loggedIn" class="mt-2 btn btn-outline-light btn-block">
+    <button
+      routerLink=""
+      *ngIf="!loggedIn"
+      class="mt-2 btn btn-outline-light btn-block"
+    >
       <i class="fas fa-sign-in-alt"></i> Login/Signup
     </button>
     <button
@@ -38,7 +42,7 @@
       <i class="fas fa-chess-king"></i> Leaderboard
     </button>
 
-    <div *ngIf="admin">
+    <div *ngIf="adminBool">
       <div class="pt-5"></div>
       <button
         class="btn btn-outline-info btn-block"

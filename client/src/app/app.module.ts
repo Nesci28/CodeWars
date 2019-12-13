@@ -10,14 +10,16 @@ import { SidebarModule } from "ng-sidebar";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BaseComponent } from "./base/base/base.component";
-import { SidebarComponent } from "./base/sidebar/sidebar.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { EditComponent } from './edit/edit.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { KataComponent } from './kata/kata.component';
-import { AdminComponent } from './admin/admin.component';
+import { EditComponent } from "./edit/edit.component";
+import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
+import { KataComponent } from "./kata/kata.component";
+import { AdminComponent } from "./admin/admin.component";
+import { FormControlValidatorDirective } from "./shared/directives/form-control-validator.directive";
+import { FormSubmitValidatorDirective } from './shared/directives/form-submit-validator.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { AdminComponent } from './admin/admin.component';
     EditComponent,
     LeaderboardComponent,
     KataComponent,
-    AdminComponent
+    AdminComponent,
+    FormControlValidatorDirective,
+    FormSubmitValidatorDirective
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ export interface backendResponse {
 }
 
 export interface Kata {
-  id: number;
+  id: string;
   title: string;
   resolved: number;
   data: number;

@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 
-import { backendResponse, ProfileData } from "../../models/http.models";
+import { backendResponse, ProfileData } from "../models/http.models";
 import { BaseComponent } from "../base/base/base.component";
 import { HttpService } from "../services/http.service";
 import { StateService } from "../services/state.service";

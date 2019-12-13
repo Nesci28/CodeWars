@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { ProfileData, Kata } from "../../models/http.models";
+import { ProfileData, Kata } from "../models/http.models";
 
 @Injectable({
   providedIn: "root"

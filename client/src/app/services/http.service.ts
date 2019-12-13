@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { environment } from "../../environments/environment";
-import { backendResponse } from "../../models/http.models";
+import { backendResponse, Kata } from "../models/http.models";
 
 @Injectable({
   providedIn: "root"
@@ -32,6 +32,13 @@ export class HttpService {
   getLeaderboard(): Observable<backendResponse> {
     return this.httpClient.get<backendResponse>(
       `${environment.url}/api/v1/leaderboard/`
+    );
+  }
+
+  postKata(kata: Kata): Observable<backendResponse> {
+    return this.httpClient.post<backendResponse>(
+      `${environment.url}/api/v1/kata`,
+      kata
     );
   }
 }

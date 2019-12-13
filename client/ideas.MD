@@ -1,0 +1,2 @@
+- [ ] Gold (loot)
+  - [ ] Unlock hints

@@ -32,9 +32,26 @@ body {
 
 .popover {
   border-color: #df691a;
-  transform: translate(192px, 94px) !important;
 }
 
-.arrow {
-  top: 7% !important;
+.invalid-feedback {
+  padding: 0.25rem 1rem;
+  background-color: #d9534f;
+  color: #fff;
+  margin-top: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+body::-webkit-scrollbar {
+  width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #4e5d6c;
+  outline: 1px solid #4e5d6c;
 }

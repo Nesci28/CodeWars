@@ -5,8 +5,15 @@
       class="form-control col-sm-8"
       placeholder="Title"
       formControlName="title"
+      appFormControlValidator
+      validationMsgId=""
     />
-    <select class="form-control col-sm-2" formControlName="level">
+    <select
+      class="form-control col-sm-2"
+      formControlName="level"
+      appFormControlValidator
+      validationMsgId=""
+    >
       <option value="7">7</option>
       <option value="6">6</option>
       <option value="5">5</option>
@@ -15,18 +22,51 @@
       <option value="2">2</option>
       <option value="1">1</option>
     </select>
-    <select class="form-control col-sm-2" formControlName="language">
+    <select
+      class="form-control col-sm-2"
+      formControlName="language"
+      appFormControlValidator
+      validationMsgId=""
+    >
       <option value="javascript">Javascript</option>
       <option value="java">Java</option>
       <option value="python">Python</option>
       <option value="c#">C#</option>
     </select>
     <textarea
+      appFormControlValidator
+      validationMsgId=""
       class="form-control w-100"
       placeholder="Description"
       formControlName="description"
       rows="3"
     ></textarea>
+    <div class="d-flex w-100" *ngFor="let x of count; let i = index">
+      <button
+        class="btn btn-outline-danger btn-sm mr-3"
+        (click)="count.splice(i, 1)"
+      >
+        <i class="far fa-minus-square"></i>
+      </button>
+      <input
+        placeholder="Answer"
+        type="text"
+        class="mr-3"
+        [formControlName]="'answer' + i"
+      />
+      <input
+        type="file"
+        class="form-control-file"
+        (change)="fileChange($event, x, i)"
+      />
+    </div>
+    <small class="form-text text-muted d-block w-100"
+      >Add at least one asset file for your challenge, if multiple is being
+      uploaded, a random one will be assigned for each challenger.</small
+    >
+    <button class="btn btn-outline-primary" (click)="addAFile()">
+      <i class="far fa-plus-square"></i>&nbsp; Add a file
+    </button>
   </form>
 </div>
 <div>
@@ -35,9 +75,9 @@
     class="w-100 position-relative"
     style="height: 200px; top:0;"
     [options]="editorOptions"
-    [(ngModel)]="function"
+    [(ngModel)]="functionEdit"
   ></ngx-monaco-editor>
-  <p class="lead mt-3 mb-0">Test case</p>
+  <p class="lead mt-3 mb-0">Free test case</p>
   <ngx-monaco-editor
     class="w-100 position-relative"
     style="height: 200px; top:0;"
@@ -45,4 +85,11 @@
     [(ngModel)]="testCases"
   ></ngx-monaco-editor>
 </div>
-<button class="btn btn-outline-primary mt-3">Save</button>
+<button
+  (click)="save()"
+  class="btn btn-outline-primary mt-3"
+  appFormSubmitValidator
+  [validationControl]="form"
+>
+  > Save
+</button>

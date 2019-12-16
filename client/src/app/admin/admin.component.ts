@@ -5,6 +5,8 @@ import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import * as uuid from "uuid";
 
 import { BaseComponent } from "../base/base/base.component";
+import { CreateKata } from "../models/http.models";
+import { HttpService } from "../services/http.service";
 
 @Component({
   selector: "app-admin",
@@ -15,16 +17,20 @@ export class AdminComponent extends BaseComponent implements OnInit {
   count$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   count: number[] = [];
 
-  editorOptions = { theme: "vs-dark", language: "javascript" };
+  editorOptions = {
+    theme: "vs-dark",
+    language: "javascript",
+    fontFamily: "Fira Code",
+    fontLigatures: true,
+    wordWrap: "on"
+  };
   functionEdit: string = `function isPangram() {
 
 }`;
-  testCases: string = `[
-  "The quick brown fox jumps over the lazy dog",
-  "Lorem ipsum dolor sit amet",
-  "Sphinx of black quartz, judge my vow",
-  "This is a fake sentence to fake Pangrams"
-]`;
+  testCases: string = `"The quick brown fox jumps over the lazy dog" === true,
+"Lorem ipsum dolor sit amet" === false,
+"Sphinx of black quartz, judge my vow" === true,
+"This is a fake sentence to fake Pangrams" === false`;
 
   form = new FormGroup({
     title: new FormControl("", Validators.required),
@@ -37,7 +43,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
   formData: FormData = new FormData();
   answers: any = {};
 
-  constructor() {
+  constructor(private httpService: HttpService) {
     super();
   }
 
@@ -71,28 +77,54 @@ export class AdminComponent extends BaseComponent implements OnInit {
     );
   }
 
+  removeAsset(x: number, i: number): void {
+    this.count.splice(i, 1);
+    delete this.answers[x];
+  }
+
   fileChange(event: any, x: number, i: number) {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-      const file: File = fileList[0];
-      const myId = uuid.v4();
-      this.answers[x] = {
-        id: i,
-        uuid: myId
+      const file = fileList[0];
+      let fileReader = new FileReader();
+      fileReader.onload = e => {
+        const myId = uuid.v4();
+        this.answers[x] = {
+          id: myId,
+          answer: this.form.get(`answer${i}`).value,
+          asset: fileReader.result
+        };
       };
-      const ext = file.name.split(".").pop();
-      this.formData.append("uploadFile", file, `${myId}.${ext}`);
+      fileReader.readAsText(file);
     }
   }
 
-  save(): void {
-    console.log("this.form.controls :", this.form.controls);
-    // const kata = {
-    //   title: this.title.value,
-    //   level: this.level.value,
-    //   language: this.language.value,
-    //   description: this.description.value,
+  updateAnswer(x: number, i: number): void {
+    if (!this.answers[x]) {
+      this.answers[x] = {};
+    }
+    this.answers[x].answer = this.form.get(`answer${i}`).value;
+  }
 
-    // }
+  preview(): void {
+    console.log("preview");
+  }
+
+  save(): void {
+    const kata: CreateKata = {
+      title: this.title.value,
+      level: this.level.value,
+      language: this.language.value,
+      description: this.description.value,
+      answers: this.answers,
+      starting: this.functionEdit,
+      tests: this.testCases
+    };
+    this.httpService
+      .postKata(kata)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        console.log("res :", res);
+      });
   }
 }

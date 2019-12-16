@@ -13,6 +13,7 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   opened: boolean = false;
   loggedIn: boolean = false;
   adminBool: boolean = false;
+  username: string;
 
   kataPopup: string = ``;
 
@@ -33,8 +34,12 @@ export class SidebarComponent extends BaseComponent implements OnInit {
       });
     this.stateService.admin$.pipe(takeUntil(this.destroy$)).subscribe(admin => {
       this.adminBool = admin;
-      console.log("adminBool :", this.adminBool);
     });
+    this.stateService.username$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(username => {
+        this.username = username;
+      });
   }
 
   toggleSidebar() {

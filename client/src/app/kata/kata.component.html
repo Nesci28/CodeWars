@@ -1,1 +1,14 @@
-<p>kata works!</p>
+<div *ngIf="kata">
+  <app-kata-summary
+    *ngIf="!train"
+    [kata]="kata"
+    [description]="convertWithNewLines(kata.description, 'st')"
+    [tests]="convertWithNewLines(kata.tests, 'em')"
+  ></app-kata-summary>
+  <app-kata-train
+    *ngIf="train"
+    [kata]="kata"
+    [description]="convertWithNewLines(kata.description, 'st')"
+    [tests]="convertWithNewLines(kata.tests, 'em')"
+  ></app-kata-train>
+</div>

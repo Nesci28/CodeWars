@@ -16,6 +16,8 @@ interface Data {
   admin?: boolean;
   profileData?: ProfileData;
   leaderboard?: Leaderboard[];
+  katas: CreateKata[];
+  kata: CreateKata;
 }
 
 export interface backendResponse {
@@ -29,6 +31,20 @@ export interface Kata {
   data: number;
   expand?: boolean;
   code: string;
+}
+
+export interface CreateKata {
+  id?: string;
+  title: string;
+  level?: number;
+  language: string;
+  description: string;
+  answers?: any;
+  starting?: string;
+  tests?: string;
+  done?: boolean;
+  date?: number;
+  code?: string;
 }
 
 export interface Leaderboard {

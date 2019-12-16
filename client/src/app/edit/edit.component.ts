@@ -11,7 +11,13 @@ import { takeUntil } from "rxjs/internal/operators/takeUntil";
 })
 export class EditComponent extends BaseComponent implements OnInit {
   kata: Kata;
-  editorOptions = { theme: "vs-dark", language: "javascript" };
+  editorOptions = {
+    theme: "vs-dark",
+    language: "javascript",
+    fontFamily: "Fira Code",
+    fontLigatures: true,
+    wordWrap: "on"
+  };
 
   constructor(private stateService: StateService) {
     super();

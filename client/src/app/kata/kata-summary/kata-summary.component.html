@@ -1,0 +1,8 @@
+<div>
+  <h3 class="text-center text-primary">{{ kata.title | titlecase }}</h3>
+  <p [innerHTML]="description"></p>
+  <p [innerHTML]="tests"></p>
+  <button (click)="goToTrain()" class="btn btn-outline-primary">
+    <i class="fas fa-dumbbell"></i> {{ checkIfKataDone() }}
+  </button>
+</div>

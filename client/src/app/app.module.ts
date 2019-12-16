@@ -16,10 +16,13 @@ import { ProfileStatsComponent } from "./profile/profile-stats/profile-stats.com
 import { ProfileComponent } from "./profile/profile.component";
 import { EditComponent } from "./edit/edit.component";
 import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
-import { KataComponent } from "./kata/kata.component";
+import { KataListComponent } from "./kata-list/kata-list.component";
 import { AdminComponent } from "./admin/admin.component";
 import { FormControlValidatorDirective } from "./shared/directives/form-control-validator.directive";
-import { FormSubmitValidatorDirective } from './shared/directives/form-submit-validator.directive';
+import { FormSubmitValidatorDirective } from "./shared/directives/form-submit-validator.directive";
+import { KataComponent } from "./kata/kata.component";
+import { KataSummaryComponent } from "./kata/kata-summary/kata-summary.component";
+import { KataTrainComponent } from "./kata/kata-train/kata-train.component";
 
 @NgModule({
   declarations: [
@@ -31,10 +34,13 @@ import { FormSubmitValidatorDirective } from './shared/directives/form-submit-va
     ProfileStatsComponent,
     EditComponent,
     LeaderboardComponent,
-    KataComponent,
+    KataListComponent,
     AdminComponent,
     FormControlValidatorDirective,
-    FormSubmitValidatorDirective
+    FormSubmitValidatorDirective,
+    KataComponent,
+    KataSummaryComponent,
+    KataTrainComponent
   ],
   imports: [
     BrowserModule,

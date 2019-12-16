@@ -13,7 +13,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ProfileStatsComponent extends BaseComponent implements OnInit {
   katas: Kata[];
   kyu: number;
-  editorOptions = { theme: "vs-dark", language: "javascript" };
+  editorOptions = {
+    theme: "vs-dark",
+    language: "javascript",
+    fontFamily: "Fira Code",
+    fontLigatures: true,
+    wordWrap: "on"
+  };
 
   constructor(
     private stateService: StateService,

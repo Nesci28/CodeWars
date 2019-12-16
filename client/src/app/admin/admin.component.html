@@ -14,13 +14,14 @@
       appFormControlValidator
       validationMsgId=""
     >
-      <option value="7">7</option>
-      <option value="6">6</option>
-      <option value="5">5</option>
-      <option value="4">4</option>
-      <option value="3">3</option>
-      <option value="2">2</option>
-      <option value="1">1</option>
+      <option value="" disabled selected hidden>Level</option>
+      <option value="7">7 Kyu</option>
+      <option value="6">6 Kyu</option>
+      <option value="5">5 Kyu</option>
+      <option value="4">4 Kyu</option>
+      <option value="3">3 Kyu</option>
+      <option value="2">2 Kyu</option>
+      <option value="1">1 Kyu</option>
     </select>
     <select
       class="form-control col-sm-2"
@@ -28,6 +29,7 @@
       appFormControlValidator
       validationMsgId=""
     >
+      <option value="" disabled selected hidden>Language</option>
       <option value="javascript">Javascript</option>
       <option value="java">Java</option>
       <option value="python">Python</option>
@@ -44,7 +46,7 @@
     <div class="d-flex w-100" *ngFor="let x of count; let i = index">
       <button
         class="btn btn-outline-danger btn-sm mr-3"
-        (click)="count.splice(i, 1)"
+        (click)="removeAsset(x, i)"
       >
         <i class="far fa-minus-square"></i>
       </button>
@@ -53,6 +55,7 @@
         type="text"
         class="mr-3"
         [formControlName]="'answer' + i"
+        (keyup)="updateAnswer(x, i)"
       />
       <input
         type="file"
@@ -80,16 +83,24 @@
   <p class="lead mt-3 mb-0">Free test case</p>
   <ngx-monaco-editor
     class="w-100 position-relative"
-    style="height: 200px; top:0;"
+    style="height: 200px; top:0"
     [options]="editorOptions"
     [(ngModel)]="testCases"
   ></ngx-monaco-editor>
 </div>
 <button
   (click)="save()"
-  class="btn btn-outline-primary mt-3"
+  class="btn btn-outline-primary my-3 mr-3"
   appFormSubmitValidator
   [validationControl]="form"
 >
-  > Save
+  Save
+</button>
+<button
+  (click)="preview()"
+  class="btn btn-outline-light my-3"
+  appFormSubmitValidator
+  [validationControl]="form"
+>
+  Preview
 </button>

@@ -1,0 +1,30 @@
+<div class="w-100">
+  <form class="w-100" autocomplete="off">
+    <input
+      type="text"
+      placeholder="Search"
+      class="w-100 form-control"
+      [ngModel]="query"
+      (ngModelChange)="changed($event)"
+      name="query"
+    />
+  </form>
+  <div *ngIf="katas">
+    <ul *ngFor="let i of [7, 6, 5, 4, 3, 2, 1]">
+      <div *ngIf="getKatas(i).length > 0">
+        <h3 class="text-center text-secondary w-100">{{ i }} Kyu</h3>
+        <div class="list-group list-group-horizontal row">
+          <div *ngFor="let kata of getKatas(i)" class="col-sm-4">
+            <a
+              routerLink="/admin/edit/{{ kata.id }}"
+              *ngIf="kata.show"
+              class="list-group-item list-group-item-action pointer"
+            >
+              {{ kata.title }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>

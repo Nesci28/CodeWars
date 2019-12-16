@@ -70,6 +70,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: backendResponse) => {
         if (res.data.code === 200) {
+          // TODO: Return gold
           this.stateService.loggedIn$.next(true);
           this.stateService.username$.next(this.username.value);
           this.stateService.admin$.next(res.data.admin);

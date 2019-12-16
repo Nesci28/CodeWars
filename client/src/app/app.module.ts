@@ -23,6 +23,8 @@ import { FormSubmitValidatorDirective } from "./shared/directives/form-submit-va
 import { KataComponent } from "./kata/kata.component";
 import { KataSummaryComponent } from "./kata/kata-summary/kata-summary.component";
 import { KataTrainComponent } from "./kata/kata-train/kata-train.component";
+import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
+import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { KataTrainComponent } from "./kata/kata-train/kata-train.component";
     FormSubmitValidatorDirective,
     KataComponent,
     KataSummaryComponent,
-    KataTrainComponent
+    KataTrainComponent,
+    AdminEditComponent,
+    AdminCreateComponent
   ],
   imports: [
     BrowserModule,

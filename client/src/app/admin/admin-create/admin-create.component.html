@@ -1,0 +1,136 @@
+<div class="row">
+  <form [formGroup]="form" class="w-100 row" style="padding-left: 30px;">
+    <input
+      type="text"
+      class="form-control col-md-8"
+      placeholder="Title"
+      formControlName="title"
+      appFormControlValidator
+      validationMsgId=""
+    />
+    <select
+      class="form-control col-md-2"
+      formControlName="level"
+      appFormControlValidator
+      validationMsgId=""
+    >
+      <option value="" disabled selected hidden>Level</option>
+      <option *ngFor="let i of [7, 6, 5, 4, 3, 2, 1]" value="{{ i }}"
+        >{{ i }} Kyu</option
+      >
+    </select>
+    <select
+      class="form-control col-md-2"
+      formControlName="language"
+      appFormControlValidator
+      validationMsgId=""
+    >
+      <option value="" disabled selected hidden>Language</option>
+      <option value="javascript">Javascript</option>
+      <option value="java">Java</option>
+      <option value="python">Python</option>
+      <option value="c#">C#</option>
+      <option value="bash">Bash</option>
+    </select>
+    <textarea
+      appFormControlValidator
+      validationMsgId=""
+      class="form-control w-100"
+      placeholder="Description"
+      formControlName="description"
+      rows="3"
+    ></textarea>
+    <div class="col-md p-0 mr-md-3 d-flex">
+      <input
+        type="text"
+        placeholder="Hint #1 (optional)"
+        class="w-75 form-control"
+        formControlName="hint1"
+      />
+      <input
+        type="text"
+        placeholder="Price #1"
+        class="w-25 form-control"
+        formControlName="price1"
+        appFormControlValidator
+        validationMsgId=""
+      />
+    </div>
+    <div class="col-md p-0 d-flex">
+      <input
+        type="text"
+        placeholder="Hint #2 (optional)"
+        class="w-75 form-control"
+        formControlName="hint2"
+      />
+      <input
+        type="text"
+        placeholder="Price #2"
+        class="w-25 form-control"
+        formControlName="price2"
+        appFormControlValidator
+        validationMsgId=""
+      />
+    </div>
+    <p class="w-100 lead mt-4 mb-0">Assets</p>
+    <div class="d-flex w-100" *ngFor="let x of count; let i = index">
+      <button
+        class="btn btn-outline-danger btn-sm mr-3"
+        (click)="removeAsset(x, i)"
+      >
+        <i class="far fa-minus-square"></i>
+      </button>
+      <input
+        type="file"
+        class="form-control-file w-25"
+        (change)="fileChange($event, x, i)"
+      />
+      <input
+        placeholder="Answer"
+        type="text"
+        class="mr-3"
+        [formControlName]="'answer' + i"
+        (keyup)="updateAnswer(x, i)"
+      />
+    </div>
+    <small class="form-text text-muted d-block w-100"
+      >Add at least one asset file for your challenge, if multiple is being
+      uploaded, a random one will be assigned for each challenger.</small
+    >
+    <button class="btn btn-outline-primary" (click)="addAFile()">
+      <i class="far fa-plus-square"></i>&nbsp; Add a file
+    </button>
+  </form>
+</div>
+<div>
+  <p class="lead mt-3 mb-0">Starting function</p>
+  <ngx-monaco-editor
+    class="w-100 position-relative"
+    style="height: 200px; top:0;"
+    [options]="editorOptions"
+    [(ngModel)]="functionEdit"
+  ></ngx-monaco-editor>
+  <p class="lead mt-3 mb-0">Free test case</p>
+  <ngx-monaco-editor
+    class="w-100 position-relative"
+    style="height: 200px; top:0"
+    [options]="editorOptions"
+    [(ngModel)]="testCases"
+  ></ngx-monaco-editor>
+</div>
+<button
+  (click)="save()"
+  class="btn btn-outline-primary my-3 mr-3"
+  appFormSubmitValidator
+  [validationControl]="form"
+>
+  Save
+</button>
+<button
+  (click)="preview()"
+  class="btn btn-outline-light my-3"
+  appFormSubmitValidator
+  [validationControl]="form"
+>
+  Preview
+</button>

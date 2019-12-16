@@ -47,6 +47,12 @@ export class HttpService {
     );
   }
 
+  getAllKatas(): Observable<backendResponse> {
+    return this.httpClient.get<backendResponse>(
+      `${environment.url}/api/v1/kata`
+    );
+  }
+
   postKata(kata: CreateKata): Observable<backendResponse> {
     return this.httpClient.post<backendResponse>(
       `${environment.url}/api/v1/kata`,

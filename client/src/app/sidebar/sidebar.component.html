@@ -70,11 +70,18 @@
       [ngClass]="{ 'pl-3': opened }"
     >
       <div class="d-flex">
-        <button class="btn btn-outline-primary" (click)="toggleSidebar()">
-          <i class="fas" [ngClass]="!opened ? 'fa-bars' : 'fa-times'"></i>
-        </button>
-        <div>&nbsp;</div>
-        <h3 class="d-inline-block m-0">CodeWars</h3>
+        <div>
+          <button
+            class="btn btn-outline-primary mr-3"
+            (click)="toggleSidebar()"
+          >
+            <i class="fas" [ngClass]="!opened ? 'fa-bars' : 'fa-times'"></i>
+          </button>
+          <h3 class="d-inline-block m-0">CodeWars</h3>
+        </div>
+        <p class="lead">
+          Gold: <span>{{ user.gold }}</span>
+        </p>
       </div>
     </nav>
   </div>

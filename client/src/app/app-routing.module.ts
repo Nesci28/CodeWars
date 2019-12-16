@@ -37,7 +37,12 @@ const routes: Routes = [
     component: LeaderboardComponent
   },
   {
-    path: "admin/create",
+    path: "admin/:type",
+    component: AdminComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "admin/:type/:id",
     component: AdminComponent,
     canActivate: [AdminGuard]
   },

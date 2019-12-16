@@ -8,6 +8,7 @@ export interface ProfileData {
   "6Kyu": any[];
   "7Kyu": any[];
   score: number;
+  gold: number;
 }
 
 interface Data {
@@ -16,8 +17,8 @@ interface Data {
   admin?: boolean;
   profileData?: ProfileData;
   leaderboard?: Leaderboard[];
-  katas: CreateKata[];
-  kata: CreateKata;
+  katas?: CreateKata[];
+  kata?: CreateKata;
 }
 
 export interface backendResponse {
@@ -45,6 +46,11 @@ export interface CreateKata {
   done?: boolean;
   date?: number;
   code?: string;
+  hint1?: string;
+  price1?: number;
+  hint2?: string;
+  price2?: number;
+  show?: boolean;
 }
 
 export interface Leaderboard {

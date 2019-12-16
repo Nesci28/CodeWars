@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 const uuid = require('uuid');
 
+const service = require('./katasService.js');
+const katasService = new service();
+
 // Database
 const db = require('monk')(
   `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}${process.env.DB_URL}`,
 );
 katasDB = db.get('katas');
 profileDB = db.get('profile');
+reviewsDB = db.get('reviews');
 
 router.get('/cat/:level/:username', async (req, res) => {
   const { level, username } = req.params;
@@ -20,7 +24,6 @@ router.get('/cat/:level/:username', async (req, res) => {
     let profile = await profileDB.findOne({ username });
     if (profile) {
       profile = profile[`${level}Kyu`];
-      console.log('profile :', profile);
     }
     data.forEach(kata => {
       const profileKata = profile.filter(e => e.id === kata.id);
@@ -44,9 +47,31 @@ router.get('/cat/:level/:username', async (req, res) => {
   });
 });
 
+router.get('/', async (req, res) => {
+  data = await katasDB.find({});
+  if (!data) {
+    data = { message: 'No Kata found', code: 404 };
+  } else {
+    const katas = [];
+    console.log('data :', data);
+    data.forEach(kata => {
+      katas.push({
+        id: kata.id,
+        title: kata.title,
+        level: kata.level,
+      });
+    });
+    data = { message: '', code: 200, katas: katas };
+  }
+  res.json({
+    data,
+  });
+});
+
 router.get('/:id', async (req, res) => {
+  let data;
   const { id } = req.params;
-  let data = await katasDB.findOne({ id });
+  data = await katasDB.findOne({ id });
   if (!data) {
     data = { message: 'No Kata found', code: 404 };
   } else {
@@ -69,29 +94,20 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/answer', async (req, res) => {
-  const { id, answer, code, username, level } = req.body;
+  // TODO: Get the kata information from DB instead of client-side (level, title)
+  // TODO: Add title
+  const { id, answer, code, username } = req.body;
+  const kata = await katasDB.findOne({ id });
+  const level = kata.level;
+  const title = kata.title;
   let kataAnswer = await katasDB.findOne({ id });
   kataAnswer = kataAnswer.answers['1'].answer;
   let data = {};
   if (kataAnswer === answer) {
     data.message = 'Congratulation';
     data.code = 200;
-    // Save to profile
-    const obj = {
-      id,
-      answer,
-      code,
-    };
-    console.log('id :', id);
-    let profile = await profileDB.findOneAndUpdate(
-      { username, [`${level}Kyu.id`]: id },
-      { $set: { [`${level}Kyu`]: { id, answer, code } } },
-    );
-    console.log('profile :', profile);
-    // if (profile.length > 0) {
-
-    // }
-    // await profileDB.replaceOne({ username, [`${level}Kyu`]: id }, { obj });
+    await katasService.updateProfile(id, answer, code, username, title, level);
+    await katasService.updateReviews(id, answer, code, username, level);
   } else {
     data.message = 'Better luck next try';
     data.code = 403;

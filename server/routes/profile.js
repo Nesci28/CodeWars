@@ -28,7 +28,6 @@ router.get('/leaderboard', async (req, res) => {
   if (!data) {
     data = { message: 'Information not found', code: 404 };
   } else {
-    console.log('data :', data);
     data = { message: '', code: 200, profileData: data };
   }
   res.json({

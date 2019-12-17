@@ -8,6 +8,11 @@ const db = require('monk')(
 );
 loginsDB = db.get('logins');
 profileDB = db.get('profile');
+sessionsDB = db.get('sessions');
+
+router.get('/session', async (req, res) => {
+  res.send(req.session);
+});
 
 router.get('/login/:username/:password', async (req, res) => {
   const { username, password } = req.params;
@@ -26,7 +31,11 @@ router.get('/login/:username/:password', async (req, res) => {
         admin: data.admin,
         gold,
       };
-      data = { message: 'Logged in', code: 200, data };
+      req.session.username = username;
+      req.session.isAuthenticated = true;
+      req.session.admin = data.admin;
+      req.session.gold = gold;
+      data = { message: 'Logged in', code: 200, data, session: req.session };
     }
     res.json({
       data,
@@ -65,6 +74,16 @@ router.get('/signup/:username/:password', async (req, res) => {
   res.json({
     data,
   });
+});
+
+router.get('/logout', async (req, res) => {
+  if (req.session.isAuthenticated) {
+    const username = req.session.username.toLowerCase();
+    await sessionsDB.remove({ 'session.username': username });
+  }
+  req.session.destroy();
+  req.session = null;
+  res.json({ message: 'destroyed!', code: 200 });
 });
 
 module.exports = router;

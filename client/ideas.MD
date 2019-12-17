@@ -1,2 +1,17 @@
-- [ ] Gold (loot)
-  - [ ] Unlock hints
+- [x] Gold (loot)
+  - [x] Unlock hints
+- [x] Session for:
+  - [x] Admin -> Edit -> /admin/:id
+  - [x] Katas -> Get Hint -> /unlock/:id
+- [x] Default Code to starting when click on Kata -> Train
+- [x] Logout
+- [ ] Get reviews in the Admin Panel
+  - [ ] Show a list of all the Reviews
+  - [ ] Show 5 inputs for each score Categories
+  - [ ] on Submit -> Give points to the user, delete Code Review from DB
+- [ ] See others's Solutions
+- [ ] https://github.com/a-jie/Proton
+  - https://a-jie.github.io/Proton/examples/initialize/position/bg-particle.html
+  - https://a-jie.github.io/three.proton/engine/example/spriterender-pointzone.html
+- [ ] https://github.com/electerious/Ackee
+- [ ] https://github.com/ngneat/transloco

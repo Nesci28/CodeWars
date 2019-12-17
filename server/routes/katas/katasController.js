@@ -11,36 +11,40 @@ const db = require('monk')(
 );
 katasDB = db.get('katas');
 profileDB = db.get('profile');
-reviewsDB = db.get('reviews');
 
 router.get('/cat/:level/:username', async (req, res) => {
   const { level, username } = req.params;
-  let data = await katasDB.find({
-    level,
-  });
-  if (!data) {
-    data = { message: 'Katas not found', code: 404 };
-  } else {
-    let profile = await profileDB.findOne({ username });
-    if (profile) {
-      profile = profile[`${level}Kyu`];
-    }
-    data.forEach(kata => {
-      const profileKata = profile.filter(e => e.id === kata.id);
-      if (profileKata.length > 0) {
-        kata.done = true;
-        kata.date = profileKata[0].date;
-        kata.starting = profileKata[0].starting;
-        kata.answer = profileKata[0].answer;
-      } else {
-        kata.done = false;
-      }
-      delete kata.level;
-      delete kata.answers;
-      delete kata.starting;
-      delete kata.tests;
+  let data;
+  if (req.session.username === username) {
+    data = await katasDB.find({
+      level,
     });
-    data = { message: '', code: 200, katas: data };
+    if (!data) {
+      data = { message: 'Katas not found', code: 404 };
+    } else {
+      let profile = await profileDB.findOne({ username });
+      if (profile) {
+        profile = profile[`${level}Kyu`];
+      }
+      data.forEach(kata => {
+        const profileKata = profile.filter(e => e.id === kata.id);
+        if (profileKata.length > 0) {
+          kata.done = true;
+          kata.date = profileKata[0].date;
+          kata.starting = profileKata[0].starting;
+          kata.answer = profileKata[0].answer;
+        } else {
+          kata.done = false;
+        }
+        delete kata.level;
+        delete kata.answers;
+        delete kata.starting;
+        delete kata.tests;
+      });
+      data = { message: '', code: 200, katas: data };
+    }
+  } else {
+    data = { message: 'You are not logged in!', code: 200 };
   }
   res.json({
     data,
@@ -53,7 +57,6 @@ router.get('/', async (req, res) => {
     data = { message: 'No Kata found', code: 404 };
   } else {
     const katas = [];
-    console.log('data :', data);
     data.forEach(kata => {
       katas.push({
         id: kata.id,
@@ -68,31 +71,72 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id/:username', async (req, res) => {
   let data;
-  const { id } = req.params;
-  data = await katasDB.findOne({ id });
-  if (!data) {
-    data = { message: 'No Kata found', code: 404 };
+  const { id, username } = req.params;
+  if (req.session.username === username) {
+    const kata = await katasDB.findOne({ id });
+    const profile = await profileDB.findOne({
+      username,
+    });
+    let show1 = false;
+    let show2 = false;
+    profile[`${kata.level}Kyu`].forEach(kata => {
+      if (kata.id === id) {
+        if (kata.hint1) show1 = true;
+        if (kata.hint2) show2 = true;
+      }
+    });
+    data = await katasDB.findOne({ id });
+    if (!data) {
+      data = { message: 'No Kata found', code: 404 };
+    } else {
+      delete data._id;
+      delete data.answers;
+      if (!show1) {
+        delete data.hint1;
+      }
+      if (!show2) {
+        delete data.hint2;
+      }
+      data = { message: '', code: 200, kata: data };
+    }
   } else {
-    delete data._id;
-    delete data.answers;
-    data = { message: '', code: 200, kata: data };
+    data = { message: 'You are not logged in!', code: 200 };
   }
   res.json({
     data,
   });
 });
 
-router.get('/admin/:id', async (req, res) => {
-  let data;
-  const { id } = req.params;
-  data = await katasDB.findOne({ id });
-  if (!data) {
-    data = { message: 'No Kata found', code: 404 };
+router.post('/unlock', async (req, res) => {
+  const { id, n, username } = req.body;
+  if (req.session.username === username) {
+    let gold = await profileDB.findOne({ username });
+    gold = gold.gold;
+    const kata = await katasDB.findOne({ id });
+    const hintValue = kata[`price${n}`];
+    if (hintValue > gold) {
+      data = { message: 'Not enough gold', code: 403 };
+    } else {
+      await profileDB.findOneAndUpdate(
+        {
+          username,
+          [`${kata.level}Kyu.id`]: id,
+        },
+        {
+          $inc: {
+            gold: -hintValue,
+          },
+          $set: {
+            [`${kata.level}Kyu.$.hint${n}`]: kata[`hint${n}`],
+          },
+        },
+      );
+      data = { message: '', code: 200, hint: kata[`hint${n}`] };
+    }
   } else {
-    delete data._id;
-    data = { message: '', code: 200, kata: data };
+    data = { message: 'You are not logged in!', code: 200 };
   }
   res.json({
     data,
@@ -109,14 +153,11 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/answer', async (req, res) => {
-  // TODO: Get the kata information from DB instead of client-side (level, title)
-  // TODO: Add title
   const { id, answer, code, username } = req.body;
   const kata = await katasDB.findOne({ id });
   const level = kata.level;
   const title = kata.title;
-  let kataAnswer = await katasDB.findOne({ id });
-  kataAnswer = kataAnswer.answers['1'].answer;
+  const kataAnswer = kata.answers['1'].answer;
   let data = {};
   if (kataAnswer === answer) {
     data.message = 'Congratulation';

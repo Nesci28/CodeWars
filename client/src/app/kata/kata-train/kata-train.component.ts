@@ -5,6 +5,7 @@ import { BaseComponent } from "src/app/base/base/base.component";
 import { backendResponse, CreateKata } from "src/app/models/http.models";
 import { HttpService } from "src/app/services/http.service";
 import { StateService } from "src/app/services/state.service";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-kata-train",
@@ -17,6 +18,11 @@ export class KataTrainComponent extends BaseComponent implements OnInit {
   @Input() tests: string;
 
   rightAnswer: boolean;
+
+  closeResult: string;
+  price: number;
+  hintNumber: number;
+  hint: string;
 
   form = new FormGroup({
     answer: new FormControl("", Validators.required)
@@ -33,15 +39,15 @@ export class KataTrainComponent extends BaseComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private stateService: StateService
+    private stateService: StateService,
+    private modalService: NgbModal
   ) {
     super();
   }
 
   ngOnInit() {
-    console.log("this.kata :", this.kata);
     if (this.kata) {
-      this.code = this.kata.code;
+      this.code = this.kata.code || this.kata.starting;
     }
   }
 
@@ -68,5 +74,36 @@ export class KataTrainComponent extends BaseComponent implements OnInit {
           }
         });
     }
+  }
+
+  openHint(confirmModal, viewModal, n: number) {
+    this.hintNumber = n;
+    if (!this.kata[`hint${n}`]) {
+      this.price = this.kata[`price${n}`];
+      this.modalService
+        .open(confirmModal, { ariaLabelledBy: "modal-basic-title" })
+        .result.then(
+          result => {
+            if (result === "yes") {
+              this.httpService
+                .unlockHint(this.kata.id, n, this.stateService.username$.value)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(hint => {
+                  this.kata[`hint${n}`] = hint;
+                });
+            }
+          },
+          _ => {}
+        );
+    } else {
+      this.hint = this.kata[`hint${n}`];
+      this.modalService
+        .open(viewModal, { ariaLabelledBy: "modal-basic-title" })
+        .result.then(_ => {}, _ => {});
+    }
+  }
+
+  getHintText(n: number): string {
+    return this.kata[`hint${n}`] ? `View Hint #${n}` : `Get Hint #${n}`;
   }
 }

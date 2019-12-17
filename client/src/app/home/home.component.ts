@@ -4,7 +4,7 @@ import { StateService } from "../services/state.service";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import { HttpService } from "../services/http.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { backendResponse } from "../models/http.models";
+import { backendResponse, Session } from "../models/http.models";
 import { Router } from "@angular/router";
 
 interface Alert {
@@ -47,13 +47,19 @@ export class HomeComponent extends BaseComponent implements OnInit {
       .subscribe(opened => {
         this.opened = opened;
       });
+    this.httpService
+      .session()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((session: Session) => {
+        if (session.isAuthenticated) {
+          this.stateService.loggedIn$.next(true);
+          this.stateService.username$.next(session.username);
+          this.stateService.admin$.next(session.admin);
+          this.stateService.gold$.next(session.gold);
 
-    // TODO: Delete
-    if (isDevMode()) {
-      this.username.setValue("test1");
-      this.password.setValue("root");
-      this.login();
-    }
+          this.router.navigate(["profile"]);
+        }
+      });
   }
 
   get username() {

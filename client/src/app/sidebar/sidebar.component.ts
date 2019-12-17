@@ -3,6 +3,8 @@ import { StateService } from "../services/state.service";
 import { BaseComponent } from "../base/base/base.component";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import { Router } from "@angular/router";
+import { HttpService } from "../services/http.service";
+import { backendResponse } from "../models/http.models";
 
 @Component({
   selector: "app-sidebar",
@@ -18,7 +20,11 @@ export class SidebarComponent extends BaseComponent implements OnInit {
 
   kataPopup: string = ``;
 
-  constructor(private stateService: StateService, private router: Router) {
+  constructor(
+    private stateService: StateService,
+    private router: Router,
+    private httpService: HttpService
+  ) {
     super();
   }
 
@@ -55,8 +61,13 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   }
 
   logout(): void {
-    this.stateService.loggedIn$.next(false);
-    this.stateService.username$.next("");
-    this.router.navigate([""]);
+    this.httpService
+      .logout()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(_ => {
+        this.stateService.loggedIn$.next(false);
+        this.stateService.username$.next("");
+        this.router.navigate([""]);
+      });
   }
 }

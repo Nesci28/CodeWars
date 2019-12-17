@@ -64,3 +64,21 @@ export interface Leaderboard {
   score: number;
   rank: string;
 }
+
+interface Cookie {
+  originalMaxAge: number;
+  expires: string;
+  secure: boolean;
+  httpOnly: boolean;
+  domain: any;
+  path: string;
+  sameSite: any;
+}
+
+export interface Session {
+  cookie: Cookie;
+  username: string;
+  isAuthenticated: boolean;
+  admin: boolean;
+  gold: number;
+}

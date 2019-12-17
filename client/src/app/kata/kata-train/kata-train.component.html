@@ -7,6 +7,24 @@
 <div class="row h-100">
   <div class="col-sm-6">
     <h3 class="text-primary text-center">{{ kata.title | titlecase }}</h3>
+    <button
+      (click)="openHint(getHint, showHint, 1)"
+      class="btn"
+      [ngClass]="kata.hint1 ? 'btn-outline-info' : 'btn-outline-light'"
+      style="width:139px;"
+    >
+      <i *ngIf="!kata.hint1" class="fas fa-lock"></i
+      ><i *ngIf="kata.hint1" class="fas fa-lock-open"></i> {{ getHintText(1) }}
+    </button>
+    <button
+      style="width:139px;"
+      (click)="openHint(getHint, showHint, 2)"
+      class="btn"
+      [ngClass]="kata.hint2 ? 'btn-outline-info' : 'btn-outline-light'"
+    >
+      <i *ngIf="!kata.hint2" class="fas fa-lock"></i
+      ><i *ngIf="kata.hint2" class="fas fa-lock-open"></i> {{ getHintText(2) }}
+    </button>
     <p [innerHTML]="description"></p>
     <p [innerHTML]="tests"></p>
   </div>
@@ -32,3 +50,52 @@
     </form>
   </div>
 </div>
+
+<ng-template #getHint let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="lead">
+      Are you sure you want to buy Hint #{{ hintNumber }} for {{ price }} gold ?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-light" (click)="modal.close('no')">
+      No
+    </button>
+    <button class="btn btn-outline-primary" (click)="modal.close('yes')">
+      Yes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #showHint let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Hint #{{ hintNumber }}</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="lead">{{ hint }}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-primary" (click)="modal.close('ok')">
+      Ok
+    </button>
+  </div>
+</ng-template>

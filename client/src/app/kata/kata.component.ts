@@ -27,7 +27,7 @@ export class KataComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params.id;
     this.httpService
-      .getKata(id)
+      .getKata(id, this.stateService.username$.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe((kata: backendResponse) => {
         this.kata = kata.data.kata;

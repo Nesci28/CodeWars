@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\marc.gagnon1\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add dotenv
+  C:\Program Files\nodejs\node.exe C:\Users\marc.gagnon1\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add express-session connect-mongodb-session
 
 PATH: 
-  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;U:\bin;U:\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;U:\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files\Amazon Corretto\jdk11.0.5_10\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\WebEx\Productivity Tools;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\marc.gagnon1\.windows-build-tools\python27;C:\Users\marc.gagnon1\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\marc.gagnon1\AppData\Local\Programs\Python\Python37-32;C:\Users\marc.gagnon1\AppData\Local\Microsoft\WindowsApps;C:\Users\marc.gagnon1\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\marc.gagnon1\AppData\Roaming\npm;C:\Program Files\heroku\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\marc.gagnon1\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files\Amazon Corretto\jdk11.0.5_10\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\WebEx\Productivity Tools;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\marc.gagnon1\.windows-build-tools\python27;C:\Users\marc.gagnon1\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\marc.gagnon1\AppData\Local\Programs\Python\Python37-32;C:\Users\marc.gagnon1\AppData\Local\Microsoft\WindowsApps;C:\Users\marc.gagnon1\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\marc.gagnon1\AppData\Roaming\npm;C:\Program Files\heroku\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
 
 Yarn version: 
   1.19.1
@@ -39,7 +39,8 @@ npm manifest:
       "express": "^4.17.1",
       "helmet": "^3.21.2",
       "monk": "^7.1.1",
-      "morgan": "^1.9.1"
+      "morgan": "^1.9.1",
+      "uuid": "^3.3.3"
     }
   }
 
@@ -1334,6 +1335,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+  
+  uuid@^3.3.3:
+    version "3.3.3"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
+    integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
   
   vary@^1, vary@~1.1.2:
     version "1.1.2"

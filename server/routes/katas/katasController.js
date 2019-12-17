@@ -84,6 +84,21 @@ router.get('/:id', async (req, res) => {
   });
 });
 
+router.get('/admin/:id', async (req, res) => {
+  let data;
+  const { id } = req.params;
+  data = await katasDB.findOne({ id });
+  if (!data) {
+    data = { message: 'No Kata found', code: 404 };
+  } else {
+    delete data._id;
+    data = { message: '', code: 200, kata: data };
+  }
+  res.json({
+    data,
+  });
+});
+
 router.post('/upload', async (req, res) => {
   const kata = req.body;
   kata.id = uuid.v4();

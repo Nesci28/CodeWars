@@ -14,6 +14,7 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   loggedIn: boolean = false;
   adminBool: boolean = false;
   username: string;
+  gold: number;
 
   kataPopup: string = ``;
 
@@ -24,21 +25,28 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.stateService.opened$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(opened => {
+      .subscribe((opened: boolean) => {
         this.opened = opened;
       });
     this.stateService.loggedIn$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(loggedIn => {
+      .subscribe((loggedIn: boolean) => {
         this.loggedIn = loggedIn;
       });
-    this.stateService.admin$.pipe(takeUntil(this.destroy$)).subscribe(admin => {
-      this.adminBool = admin;
-    });
+    this.stateService.admin$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((admin: boolean) => {
+        this.adminBool = admin;
+      });
     this.stateService.username$
       .pipe(takeUntil(this.destroy$))
       .subscribe(username => {
         this.username = username;
+      });
+    this.stateService.gold$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((gold: number) => {
+        this.gold = gold;
       });
   }
 

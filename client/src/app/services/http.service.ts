@@ -41,6 +41,12 @@ export class HttpService {
     );
   }
 
+  getKataAdmin(id: string): Observable<backendResponse> {
+    return this.httpClient.get<backendResponse>(
+      `${environment.url}/api/v1/kata/admin/${id}`
+    );
+  }
+
   getKatas(level: number, username: string): Observable<backendResponse> {
     return this.httpClient.get<backendResponse>(
       `${environment.url}/api/v1/kata/cat/${level}/${username}`

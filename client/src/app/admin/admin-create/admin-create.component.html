@@ -81,16 +81,18 @@
         <i class="far fa-minus-square"></i>
       </button>
       <input
-        type="file"
-        class="form-control-file w-25"
-        (change)="fileChange($event, x, i)"
-      />
-      <input
         placeholder="Answer"
         type="text"
         class="mr-3"
         [formControlName]="'answer' + i"
         (keyup)="updateAnswer(x, i)"
+      />
+      <label for="file" class="btn btn-light btn-custom">Select</label>
+      <input
+        type="file"
+        id="file"
+        (change)="fileChange($event, x, i)"
+        style="visibility: hidden;"
       />
     </div>
     <small class="form-text text-muted d-block w-100"

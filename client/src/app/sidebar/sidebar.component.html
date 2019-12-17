@@ -69,18 +69,20 @@
       class="bg-dark d-flex justify-content-left align-items-center py-2"
       [ngClass]="{ 'pl-3': opened }"
     >
-      <div class="d-flex">
-        <div>
+      <div
+        class="d-flex justify-content-between w-100 h-100 align-items-center"
+      >
+        <div class="ml-3">
           <button
             class="btn btn-outline-primary mr-3"
             (click)="toggleSidebar()"
           >
             <i class="fas" [ngClass]="!opened ? 'fa-bars' : 'fa-times'"></i>
           </button>
-          <h3 class="d-inline-block m-0">CodeWars</h3>
+          <h3 class="d-inline-block m-0 align-middle">CodeWars</h3>
         </div>
-        <p class="lead">
-          Gold: <span>{{ user.gold }}</span>
+        <p class="lead mb-0 mr-3" [ngClass]="{ 'p-gold-translatex': opened }">
+          Gold: <span>{{ gold }}</span>
         </p>
       </div>
     </nav>

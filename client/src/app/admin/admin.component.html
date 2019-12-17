@@ -1,5 +1,5 @@
 <div>
   <app-admin-create *ngIf="type === 'create'"></app-admin-create>
   <app-admin-edit *ngIf="type === 'edit' && !id"></app-admin-edit>
-  <app-admin-create *ngIf="type === 'edit' && id"></app-admin-create>
+  <app-admin-create *ngIf="type === 'edit' && id" [id]="id"></app-admin-create>
 </div>

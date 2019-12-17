@@ -1,12 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
 import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import * as uuid from "uuid";
 
 import { BaseComponent } from "../../base/base/base.component";
-import { CreateKata } from "../../models/http.models";
+import { CreateKata, backendResponse } from "../../models/http.models";
 import { HttpService } from "../../services/http.service";
+import { StateService } from "src/app/services/state.service";
 
 @Component({
   selector: "app-admin-create",
@@ -14,6 +15,10 @@ import { HttpService } from "../../services/http.service";
   styleUrls: ["./admin-create.component.scss"]
 })
 export class AdminCreateComponent extends BaseComponent implements OnInit {
+  @Input() id: string;
+
+  kata: CreateKata;
+
   count$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   count: number[] = [];
 
@@ -24,13 +29,8 @@ export class AdminCreateComponent extends BaseComponent implements OnInit {
     fontLigatures: true,
     wordWrap: "on"
   };
-  functionEdit: string = `function isPangram() {
-
-}`;
-  testCases: string = `"The quick brown fox jumps over the lazy dog" === true,
-"Lorem ipsum dolor sit amet" === false,
-"Sphinx of black quartz, judge my vow" === true,
-"This is a fake sentence to fake Pangrams" === false`;
+  functionEdit: string;
+  testCases: string;
 
   form = new FormGroup({
     title: new FormControl("", Validators.required),
@@ -47,7 +47,10 @@ export class AdminCreateComponent extends BaseComponent implements OnInit {
   formData: FormData = new FormData();
   answers: any = {};
 
-  constructor(private httpService: HttpService) {
+  constructor(
+    private httpService: HttpService,
+    private stateService: StateService
+  ) {
     super();
   }
 
@@ -55,6 +58,17 @@ export class AdminCreateComponent extends BaseComponent implements OnInit {
     this.count$.pipe(takeUntil(this.destroy$)).subscribe(count => {
       this.count.push(count);
     });
+    if (this.id && this.stateService.admin$.value === true) {
+      this.httpService
+        .getKataAdmin(this.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((kata: backendResponse) => {
+          this.kata = kata.data.kata;
+          this.setVariables(this.kata);
+        });
+    } else {
+      this.setVariables();
+    }
   }
 
   get title() {
@@ -83,6 +97,30 @@ export class AdminCreateComponent extends BaseComponent implements OnInit {
   }
   get price2() {
     return this.form.get("price2");
+  }
+
+  setVariables(kata?: CreateKata) {
+    if (!kata) {
+      this.functionEdit = `function isPangram() {
+
+}`;
+      this.testCases = `"The quick brown fox jumps over the lazy dog" === true,
+"Lorem ipsum dolor sit amet" === false,
+"Sphinx of black quartz, judge my vow" === true,
+"This is a fake sentence to fake Pangrams" === false`;
+    } else {
+      this.title.setValue(this.kata.title);
+      this.level.setValue(this.kata.level);
+      this.language.setValue(this.kata.language);
+      this.description.setValue(this.kata.description);
+      this.hint1.setValue(this.kata.hint1);
+      this.price1.setValue(this.kata.price1);
+      this.hint2.setValue(this.kata.hint2);
+      this.price2.setValue(this.kata.price2);
+      // TODO: Set files
+      this.functionEdit = this.kata.starting;
+      this.testCases = this.kata.tests;
+    }
   }
 
   addAFile(): void {
@@ -123,6 +161,7 @@ export class AdminCreateComponent extends BaseComponent implements OnInit {
   }
 
   preview(): void {
+    // TODO: Preview
     console.log("preview");
   }
 

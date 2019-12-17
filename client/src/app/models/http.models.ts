@@ -11,14 +11,19 @@ export interface ProfileData {
   gold: number;
 }
 
+interface Login {
+  admin: boolean;
+  gold: number;
+}
+
 interface Data {
   message: string;
   code: number;
-  admin?: boolean;
   profileData?: ProfileData;
   leaderboard?: Leaderboard[];
   katas?: CreateKata[];
   kata?: CreateKata;
+  data: Login;
 }
 
 export interface backendResponse {

@@ -20,12 +20,18 @@ router.get('/login/:username/:password', async (req, res) => {
     if (!bcrypt.compareSync(password, data.password)) {
       data = { message: 'Wrong credentials', code: 401 };
     } else {
-      data = { message: 'Logged in', code: 200, admin: data.admin };
+      let gold = await profileDB.findOne({ username });
+      gold = gold.gold;
+      data = {
+        admin: data.admin,
+        gold,
+      };
+      data = { message: 'Logged in', code: 200, data };
     }
+    res.json({
+      data,
+    });
   }
-  res.json({
-    data,
-  });
 });
 
 function passwordConvert(password) {

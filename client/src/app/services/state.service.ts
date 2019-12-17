@@ -11,6 +11,7 @@ export class StateService {
   loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   username$: BehaviorSubject<string> = new BehaviorSubject<string>("");
   admin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  gold$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   profile$: BehaviorSubject<ProfileData> = new BehaviorSubject<ProfileData>(
     {} as ProfileData
   );

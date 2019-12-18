@@ -1,5 +1,6 @@
 class KatasService {
-  constructor() {
+  constructor(uuid) {
+    this.uuid = uuid;
     const db = require('monk')(
       `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}${process.env.DB_URL}`,
     );
@@ -68,17 +69,20 @@ class KatasService {
     }
   }
 
-  async updateReviews(id, answer, code, username) {
+  async updateReviews(id, answer, code, username, title) {
     let review = await this.reviewsDB.findOne({
       username,
       id,
     });
     if (review === null) {
       await this.reviewsDB.insert({
+        id: this.uuid.v4(),
         username,
-        id,
+        kataId: id,
+        title,
         answer,
         code,
+        date: new Date().getTime(),
         checked: false,
       });
     }
@@ -88,6 +92,7 @@ class KatasService {
         {
           $set: {
             refactorCode: code,
+            date: new Date().getTime(),
             checked: false,
           },
         },

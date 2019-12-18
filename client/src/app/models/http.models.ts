@@ -23,7 +23,9 @@ interface Data {
   leaderboard?: Leaderboard[];
   katas?: CreateKata[];
   kata?: CreateKata;
-  data: Login;
+  data?: Login;
+  reviews: Review[];
+  review: Review;
 }
 
 export interface backendResponse {
@@ -81,4 +83,19 @@ export interface Session {
   isAuthenticated: boolean;
   admin: boolean;
   gold: number;
+}
+
+export interface Review {
+  username: string;
+  id: string;
+  title: string;
+  code: string;
+  answer?: string;
+  date: number;
+  checked?: boolean;
+}
+
+export interface Star {
+  index: number;
+  selected: boolean;
 }

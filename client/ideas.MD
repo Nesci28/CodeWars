@@ -5,9 +5,9 @@
   - [x] Katas -> Get Hint -> /unlock/:id
 - [x] Default Code to starting when click on Kata -> Train
 - [x] Logout
-- [ ] Get reviews in the Admin Panel
-  - [ ] Show a list of all the Reviews
-  - [ ] Show 5 inputs for each score Categories
+- [x] Get reviews in the Admin Panel
+  - [x] Show a list of all the Reviews
+  - [ ] Show 5 stars for each score Categories
   - [ ] on Submit -> Give points to the user, delete Code Review from DB
 - [ ] See others's Solutions
 - [ ] https://github.com/a-jie/Proton

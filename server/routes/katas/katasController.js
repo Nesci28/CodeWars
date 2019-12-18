@@ -3,7 +3,7 @@ const router = express.Router();
 const uuid = require('uuid');
 
 const service = require('./katasService.js');
-const katasService = new service();
+const katasService = new service(uuid);
 
 // Database
 const db = require('monk')(
@@ -163,7 +163,7 @@ router.post('/answer', async (req, res) => {
     data.message = 'Congratulation';
     data.code = 200;
     await katasService.updateProfile(id, answer, code, username, title, level);
-    await katasService.updateReviews(id, answer, code, username, level);
+    await katasService.updateReviews(id, answer, code, username, title);
   } else {
     data.message = 'Better luck next try';
     data.code = 403;

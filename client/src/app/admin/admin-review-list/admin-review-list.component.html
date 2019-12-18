@@ -1,0 +1,18 @@
+<div *ngIf="reviews">
+  <div class="list-group">
+    <a
+      *ngFor="let review of reviews"
+      class="list-group-item list-group-item-action pointer d-flex justify-content-between align-items-center"
+      (click)="goToReview(review.id)"
+    >
+      <div>
+        <span>{{ review.title | titlecase }}</span>
+        <div class="divider divider-vertical"></div>
+        <span>{{ review.username }}</span>
+      </div>
+      <span class="badge badge-pill badge-primary">{{
+        review.date | date
+      }}</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div>
+  <div
+    *ngFor="let star of stars"
+    (click)="select(star.index)"
+    class="d-inline pointer"
+  >
+    <i *ngIf="!star.selected" class="far fa-star text-primary"></i>
+    <i *ngIf="star.selected" class="fas fa-star text-primary"></i>
+  </div>
+</div>

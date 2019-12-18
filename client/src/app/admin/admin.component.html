@@ -2,5 +2,11 @@
   <app-admin-create *ngIf="type === 'create'"></app-admin-create>
   <app-admin-edit *ngIf="type === 'edit' && !id"></app-admin-edit>
   <app-admin-create *ngIf="type === 'edit' && id" [id]="id"></app-admin-create>
-  <app-admin-review *ngIf="type === 'review'"></app-admin-review>
+  <app-admin-review-list
+    *ngIf="type === 'review' && !id"
+  ></app-admin-review-list>
+  <app-admin-review
+    *ngIf="type === 'review' && id"
+    [id]="id"
+  ></app-admin-review>
 </div>

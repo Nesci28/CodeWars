@@ -25,7 +25,9 @@ import { KataSummaryComponent } from "./kata/kata-summary/kata-summary.component
 import { KataTrainComponent } from "./kata/kata-train/kata-train.component";
 import { AdminEditComponent } from "./admin/admin-edit/admin-edit.component";
 import { AdminCreateComponent } from "./admin/admin-create/admin-create.component";
-import { AdminReviewComponent } from "./admin/admin-review/admin-review.component";
+import { AdminReviewListComponent } from "./admin/admin-review-list/admin-review-list.component";
+import { AdminReviewComponent } from './admin/admin-review/admin-review.component';
+import { StarsComponent } from './shared/stars/stars.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { AdminReviewComponent } from "./admin/admin-review/admin-review.componen
     KataTrainComponent,
     AdminEditComponent,
     AdminCreateComponent,
-    AdminReviewComponent
+    AdminReviewListComponent,
+    AdminReviewComponent,
+    StarsComponent
   ],
   imports: [
     BrowserModule,

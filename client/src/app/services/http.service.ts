@@ -138,4 +138,22 @@ export class HttpService {
       }
     );
   }
+
+  getReviewsAdmin(): Observable<backendResponse> {
+    return this.httpClient.get<backendResponse>(
+      `${environment.url}/api/v1/admin/reviews`,
+      {
+        withCredentials: true
+      }
+    );
+  }
+
+  getReviewAdmin(id: string): Observable<backendResponse> {
+    return this.httpClient.get<backendResponse>(
+      `${environment.url}/api/v1/admin/review/${id}`,
+      {
+        withCredentials: true
+      }
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Star } from "src/app/models/http.models";
 
 @Component({
@@ -9,6 +9,8 @@ import { Star } from "src/app/models/http.models";
 export class StarsComponent implements OnInit {
   @Input() num: number;
   @Input() title: string;
+
+  @Output() selected = new EventEmitter<any>();
 
   stars: Star[] = [];
 
@@ -32,5 +34,6 @@ export class StarsComponent implements OnInit {
     for (let i = 0; i <= index; i++) {
       this.stars[i].selected = true;
     }
+    this.selected.emit(index + 1);
   }
 }

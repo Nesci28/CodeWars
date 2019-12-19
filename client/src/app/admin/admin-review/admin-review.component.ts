@@ -24,7 +24,7 @@ export class AdminReviewComponent extends BaseComponent implements OnInit {
 
   title = {
     "0": "Lisibility",
-    "1": "Good pratice",
+    "1": "Good practice",
     "2": "Performance",
     "3": "TBD",
     "4": "TBD"
@@ -45,5 +45,10 @@ export class AdminReviewComponent extends BaseComponent implements OnInit {
 
   getTitle(i: number): string {
     return this.title[`${i}`];
+  }
+
+  printMsg(num: number, title: string): void {
+    console.log("num :", num);
+    console.log("title :", title);
   }
 }

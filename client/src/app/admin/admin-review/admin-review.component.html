@@ -5,9 +5,18 @@
     [options]="editorOptions"
     [(ngModel)]="review.code"
   ></ngx-monaco-editor>
-  <div *ngFor="let i of [0, 1, 2, 3, 4]" class="d-inline-block mr-3">
-    <span class="lead">{{ getTitle(i) }}</span>
-    <app-stars [num]="5"></app-stars>
+  <div class="row">
+    <div
+      *ngFor="let i of [0, 1, 2, 3, 4]; let last = last"
+      style="min-width:120px;"
+      class="text-center col-sm-2 d-flex flex-column flex-nowrap justify-content-end"
+    >
+      <span class="lead">{{ getTitle(i) }}</span>
+      <app-stars
+        [num]="5"
+        (selected)="printMsg($event, getTitle(i))"
+      ></app-stars>
+    </div>
   </div>
   <button class="btn btn-outline-primary btn-sm mt-1">Confirm</button>
 </div>
